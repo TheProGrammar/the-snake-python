@@ -10,6 +10,8 @@ The player controls a dot, square, or object on a bordered plane. As it moves fo
 
 The snake movement cannot be stopped - it is always moving but the direction can be controlled by arrow keys.
 
+The goal of the game is to eat as much food as possible without touching anything except the food itself.
+
 ## Contribution
 Feel free to contribute to this project. Thoughts and advice are welcome.
 
