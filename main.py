@@ -18,7 +18,7 @@ pygame.display.set_caption("The Snake Game")
 
 snake_parts = pygame.sprite.Group()
 snake = Snake()
-snake.set_rounded(5)
+snake.set_rounded(8)
 snake.rect.center = screen.get_rect().center
 snake_parts.add(snake)
 
