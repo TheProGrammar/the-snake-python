@@ -15,14 +15,17 @@ class Food(pygame.sprite.Sprite):
         self.rect.y = random.randrange(self.surface.get_size()[0], screen_height - self.surface.get_size()[0])
 
     def is_collided(self, sprite1):
+        """Return true if food collides with the snake"""
         col = pygame.sprite.collide_rect(sprite1, self)
         if col:
             return True
 
     def remove(self, lst):
+        """Empty the food list"""
         lst.empty()
 
     def create_food(self, lst, width, height):
+        """Create food object on random screen position"""
         food = Food(width, height)
         lst.add(food)
         return food

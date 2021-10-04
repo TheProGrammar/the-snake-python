@@ -3,7 +3,6 @@ import pygame
 
 class Snake(pygame.sprite.Sprite):
     """A class to manage Snake attributes"""
-
     def __init__(self):
         super(Snake, self).__init__()
         self.surface = pygame.Surface((30, 30))
@@ -17,6 +16,7 @@ class Snake(pygame.sprite.Sprite):
         self.is_moving_left = False
 
     def set_rounded(self, roundness):
+        """Make snake rect with round edges"""
         surface_size = self.surface.get_size()
         self.rect_image = pygame.Surface(surface_size, pygame.SRCALPHA)
         pygame.draw.rect(self.rect_image, self.color, (0, 0, surface_size[0], surface_size[1]), border_radius=roundness)
@@ -24,6 +24,7 @@ class Snake(pygame.sprite.Sprite):
         self.image.blit(self.rect_image, (0, 0), None, pygame.BLEND_RGBA_MIN)
 
     def reset_moving_flags(self):
+        """Reset all moving booleans to False"""
         self.is_moving_up = False
         self.is_moving_down = False
         self.is_moving_right = False

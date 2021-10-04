@@ -21,25 +21,31 @@ pygame.display.set_caption("The Snake Game")
 clock = pygame.time.Clock()
 FPS = 5
 
-snake_list = pygame.sprite.Group()
-food_list = pygame.sprite.Group()
+# Groups that store objects
+snake_group = pygame.sprite.Group()
+food_group = pygame.sprite.Group()
 
+# Instantiate the snake object
 snake = Snake()
 snake.set_rounded(8)
 snake.rect.center = (285, 285)
-snake_list.add(snake)
+snake_group.add(snake)
 
 
 def main():
+    """Main game loop"""
 
+    # Instantiate the first food object
     food = Food(SCREEN_WIDTH, SCREEN_HEIGHT)
-    food_list.add(food)
+    food_group.add(food)
 
     while True:
+        # Check user input events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            # Check for user keyboard presses
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     snake.move_up()
@@ -50,18 +56,23 @@ def main():
                 elif event.key == pygame.K_RIGHT:
                     snake.move_right()
 
+        # Screen background color
         screen.fill(SCREEN_BG_COLOR)
 
-        food_list.draw(screen)
-        snake_list.draw(screen)
+        # Draw the objects from groups on screen
+        food_group.draw(screen)
+        snake_group.draw(screen)
 
         if food.is_collided(snake):
-            food.remove(food_list)
-            food = food.create_food(food_list, SCREEN_WIDTH, SCREEN_HEIGHT)
+            food.remove(food_group)
+            food = food.create_food(food_group, SCREEN_WIDTH, SCREEN_HEIGHT)
 
+        # Run snake class update method
         snake.update()
 
+        # Refresh display on each frame
         pygame.display.update()
+        # Set FPS value
         clock.tick(FPS)
 
 
