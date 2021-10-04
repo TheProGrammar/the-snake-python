@@ -2,6 +2,8 @@ import pygame
 
 
 class Snake(pygame.sprite.Sprite):
+    """A class to manage Snake attributes"""
+
     def __init__(self, name):
         super(Snake, self).__init__()
         self.surface = pygame.Surface((30, 30))

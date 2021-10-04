@@ -1,6 +1,7 @@
 import sys
 import pygame
 from snake import Snake
+from food import Food
 
 pygame.init()
 
@@ -23,8 +24,13 @@ snake.set_rounded(8)
 snake.rect.center = (285, 285)
 snake_parts.add(snake)
 
+food_list = pygame.sprite.Group()
+
 
 def main():
+
+    food = Food(SCREEN_WIDTH, SCREEN_HEIGHT)
+    food_list.add(food)
 
     while True:
         for event in pygame.event.get():
@@ -34,27 +40,38 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     if snake.moving_down:
-                        return
+                        continue
                     snake.reset_moving_flags()
                     snake.moving_up = True
                 elif event.key == pygame.K_DOWN:
                     if snake.moving_up:
-                        return
+                        continue
                     snake.reset_moving_flags()
                     snake.moving_down = True
                 elif event.key == pygame.K_LEFT:
                     if snake.moving_right:
-                        return
+                        continue
                     snake.reset_moving_flags()
                     snake.moving_left = True
                 elif event.key == pygame.K_RIGHT:
                     if snake.moving_left:
-                        return
+                        continue
                     snake.reset_moving_flags()
                     snake.moving_right = True
 
         screen.fill(SCREEN_BG_COLOR)
+
+        food_list.draw(screen)
         snake_parts.draw(screen)
+
+        if len(food_list) < 1:
+            food = Food(SCREEN_WIDTH, SCREEN_HEIGHT)
+            food_list.add(food)
+
+        if food.collision_check(snake):
+            food.kill()
+            food = Food(SCREEN_WIDTH, SCREEN_HEIGHT)
+            food_list.add(food)
 
         snake.update()
 
