@@ -14,9 +14,15 @@ class Food(pygame.sprite.Sprite):
         self.rect.x = random.randrange(self.surface.get_size()[0], screen_width - self.surface.get_size()[0])
         self.rect.y = random.randrange(self.surface.get_size()[0], screen_height - self.surface.get_size()[0])
 
-    def collision_check(self, sprite1):
+    def is_collided(self, sprite1):
         col = pygame.sprite.collide_rect(sprite1, self)
         if col:
             return True
-        else:
-            return False
+
+    def remove(self, lst):
+        lst.empty()
+
+    def create_food(self, lst, width, height):
+        food = Food(width, height)
+        lst.add(food)
+        return food
