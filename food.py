@@ -33,8 +33,8 @@ class Food(pygame.sprite.Sprite):
         """Empty the food list"""
         lst.empty()
 
-    def create_food(self, lst, width, height, snake_width):
+    def create_food(self, lst, width, snake_width):
         """Create food object on random screen position"""
-        food = Food(width, height, snake_width)
+        food = Food(width, snake_width)
         lst.add(food)
         return food
