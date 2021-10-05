@@ -36,7 +36,7 @@ def main():
     """Main game loop"""
 
     # Instantiate the first food object
-    food = Food(SCREEN_WIDTH, SCREEN_HEIGHT)
+    food = Food(SCREEN_WIDTH, snake.rect.width)
     food_group.add(food)
 
     while True:
@@ -65,7 +65,7 @@ def main():
 
         if food.is_collided(snake):
             food.remove(food_group)
-            food = food.create_food(food_group, SCREEN_WIDTH, SCREEN_HEIGHT)
+            food = food.create_food(food_group, SCREEN_WIDTH, snake.rect.width)
 
         # Run snake class update method
         snake.update()
