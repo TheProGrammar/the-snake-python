@@ -6,6 +6,7 @@ class Snake(pygame.sprite.Sprite):
     def __init__(self):
         super(Snake, self).__init__()
         self.surface = pygame.Surface((30, 30))
+        self.tag = ""
         self.color = (255, 255, 255)
         self.surface.fill(self.color)
         self.image = self.surface
@@ -14,12 +15,13 @@ class Snake(pygame.sprite.Sprite):
         self.is_moving_down = False
         self.is_moving_right = True
         self.is_moving_left = False
+        self.set_rounded()
 
-    def set_rounded(self, roundness):
+    def set_rounded(self):
         """Make snake rect with round edges"""
         surface_size = self.surface.get_size()
         self.rect_image = pygame.Surface(surface_size, pygame.SRCALPHA)
-        pygame.draw.rect(self.rect_image, self.color, (0, 0, surface_size[0], surface_size[1]), border_radius=roundness)
+        pygame.draw.rect(self.rect_image, self.color, (0, 0, surface_size[0], surface_size[1]), border_radius=8)
         self.image = self.surface.copy().convert_alpha()
         self.image.blit(self.rect_image, (0, 0), None, pygame.BLEND_RGBA_MIN)
 
@@ -32,13 +34,13 @@ class Snake(pygame.sprite.Sprite):
 
     def update(self):
         if self.is_moving_up:
-            self.rect.y -= 30
+            self.rect.top -= 30
         elif self.is_moving_down:
-            self.rect.y += 30
+            self.rect.bottom += 30
         elif self.is_moving_left:
-            self.rect.x -= 30
+            self.rect.left -= 30
         elif self.is_moving_right:
-            self.rect.x += 30
+            self.rect.right += 30
 
     def move_up(self):
         if self.is_moving_down:
