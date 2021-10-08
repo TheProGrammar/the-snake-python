@@ -3,7 +3,7 @@
 ## What is the Snake game?
 Snake is the common name for a video game concept where the player maneuvers a line (a body) which grows in length when eating food on the ground, with the line itself being a primary obstacle.
 
-![snake new2](https://user-images.githubusercontent.com/68731924/135813368-4e1c32ce-38ba-468a-ba53-5be6aa82bc98.gif)
+![gific](https://user-images.githubusercontent.com/68731924/136551758-1dc29c40-22a9-4fdc-9c34-cb98ea1e904e.gif)
 
 ## Description
 The player controls a dot, square, or object on a bordered plane. As it moves forward, it leaves a trail behind, resembling a moving snake. The snake has a specific length depending on how much food it collects where one eaten piece of food prolongs the body for one unit, so there is a moving tail a fixed number of units away from the head. The player loses when the snake runs into the screen border, other obstacle, or itself.
