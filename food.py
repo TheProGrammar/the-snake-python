@@ -4,7 +4,6 @@ import random
 
 class Food(pygame.sprite.Sprite):
     """A class to manage food attributes."""
-
     def __init__(self, screen_width, snake_width):
         super(Food, self).__init__()
         self.surface = pygame.Surface((10, 10))
@@ -17,6 +16,7 @@ class Food(pygame.sprite.Sprite):
         self.rect.y = random.choice(self.position_list)
 
     def fill_pos_list(self, screen_width, snake_width):
+        # Fill the position list with possible food locations on ground
         pos = 10
         self.position_list.append(pos)
         for _ in range(int(screen_width / snake_width) - 1):

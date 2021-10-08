@@ -26,6 +26,7 @@ FPS = 5
 snake_group = pygame.sprite.Group()
 food_group = pygame.sprite.Group()
 
+# Instantiate the snake head
 snake = Snake()
 snake.tag = "head"
 snake.rect.center = (285, 285)
@@ -35,12 +36,11 @@ snake_group.add(snake)
 def main():
     """Main game loop"""
 
-    i = 1
-
     # Instantiate the first food object
     food = Food(SCREEN_WIDTH, snake.rect.width)
     food_group.add(food)
 
+    # Set allowed input events
     pygame.event.set_allowed(QUIT)
     pygame.event.set_allowed(KEYDOWN)
 
@@ -68,24 +68,20 @@ def main():
         food_group.draw(screen)
         snake_group.draw(screen)
 
-        last_pos = snake_group.sprites()[len(snake_group) - i].rect.center
-        for sprite in snake_group:
-            if sprite.tag == "head":
-                sprite.update()
-            else:
-                sprite.rect.center = last_pos
+        # Make body follow the head
+        snake.follow_head(snake_group)
+        # Move & control the snake head
+        snake.update()
 
+        # Check if snake has collided with food
         if food.is_collided(snake):
+            # Remove food from ground
             food.remove(food_group)
+            # Create new food on a random position
             food = food.create_food(food_group, SCREEN_WIDTH, snake.rect.width)
+            # Prolong the snake body by 1
+            snake.create_new_body(snake_group)
 
-            body = Snake()
-            body.tag = "body"
-            body.rect.center = snake_group.sprites()[len(snake_group) - 1].rect.center
-            snake_group.add(body)
-            i += 1
-
-        print(len(snake_group))
         # Refresh display on each frame
         pygame.display.update()
         # Set FPS value

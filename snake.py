@@ -33,6 +33,7 @@ class Snake(pygame.sprite.Sprite):
         self.is_moving_left = False
 
     def update(self):
+        # Runs of every frame
         if self.is_moving_up:
             self.rect.top -= 30
         elif self.is_moving_down:
@@ -41,6 +42,24 @@ class Snake(pygame.sprite.Sprite):
             self.rect.left -= 30
         elif self.is_moving_right:
             self.rect.right += 30
+
+    def follow_head(self, group):
+        # Make body follow the snake head
+        if len(group) > 1:
+            i = 2
+            x = 1
+            for _ in range(len(group) - 1):
+                pos = group.sprites()[-i].rect.center
+                group.sprites()[-x].rect.center = pos
+                i += 1
+                x += 1
+
+    def create_new_body(self, group):
+        # Create new snake body part
+        body = Snake()
+        body.tag = "body"
+        body.rect.center = group.sprites()[len(group) - 1].rect.center
+        group.add(body)
 
     def move_up(self):
         if self.is_moving_down:
