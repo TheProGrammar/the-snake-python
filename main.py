@@ -14,7 +14,7 @@ SCREEN_BG_COLOR = (45, 45, 45)
 
 # Instantiate screen settings
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-icon = pygame.image.load("game_icon.png")
+icon = pygame.image.load("assets/game_icon.png").convert_alpha()
 pygame.display.set_icon(icon)
 pygame.display.set_caption("The Snake Game")
 
