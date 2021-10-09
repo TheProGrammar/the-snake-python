@@ -6,10 +6,8 @@ class Snake(pygame.sprite.Sprite):
     def __init__(self, image):
         super(Snake, self).__init__()
         self.image = image.convert_alpha()
+        self.reset_image = pygame.image.load("assets/head.png").convert_alpha()
         self.surface = pygame.Surface((30, 30))
-        self.tag = ""
-        self.color = (255, 255, 255)
-        self.surface.fill(self.color)
         self.rect = self.image.get_rect()
         self.is_moving_up = False
         self.is_moving_down = False
@@ -28,12 +26,14 @@ class Snake(pygame.sprite.Sprite):
             self.reset_rotation(0)
 
     def reset_rotation(self, degree):
-        self.image = pygame.image.load('assets/head.png')
+        """Reset the snake head rotation to default and
+        depending on move direction set a new rotation"""
+        self.image = self.reset_image
         self.image = pygame.transform.rotate(self.image, degree)
         self.rotation_is_done = True
 
     def reset_moving_flags(self):
-        """Reset all moving booleans to False"""
+        """Reset all flag booleans to False"""
         self.is_moving_up = False
         self.is_moving_down = False
         self.is_moving_right = False
@@ -56,6 +56,8 @@ class Snake(pygame.sprite.Sprite):
         if len(group) > 1:
             i = 2
             x = 1
+            # Set the last body part's position in list to the
+            # one before it to create the following illusion
             for _ in range(len(group) - 1):
                 pos = group.sprites()[-i].rect.center
                 group.sprites()[-x].rect.center = pos
@@ -65,7 +67,6 @@ class Snake(pygame.sprite.Sprite):
     def create_new_body(self, group):
         # Create new snake body part
         body = Snake(pygame.image.load("assets/body.png"))
-        body.tag = "body"
         body.rect.center = group.sprites()[len(group) - 1].rect.center
         group.add(body)
 

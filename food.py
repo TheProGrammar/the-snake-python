@@ -6,7 +6,7 @@ class Food(pygame.sprite.Sprite):
     """A class to manage food attributes."""
     def __init__(self, screen_width, snake_width):
         super(Food, self).__init__()
-        self.image = pygame.image.load("assets/apple.png")
+        self.image = pygame.image.load("assets/apple.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.position_list = [snake_width]
         self.fill_pos_list(screen_width, snake_width)
@@ -22,9 +22,7 @@ class Food(pygame.sprite.Sprite):
 
     def is_collided(self, sprite1):
         """Return true if food collides with the snake"""
-        col = pygame.sprite.collide_rect(sprite1, self)
-        if col:
-            return True
+        return pygame.sprite.collide_rect(sprite1, self)
 
     def remove(self, lst):
         """Empty the food list"""

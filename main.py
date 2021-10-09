@@ -18,6 +18,9 @@ icon = pygame.image.load("game_icon.png")
 pygame.display.set_icon(icon)
 pygame.display.set_caption("The Snake Game")
 
+# Load images
+BACKGROUND = pygame.image.load("assets/background.png").convert()
+
 # Set a clock for game speed settings
 clock = pygame.time.Clock()
 FPS = 5
@@ -28,13 +31,13 @@ food_group = pygame.sprite.Group()
 
 # Instantiate the snake head
 snake = Snake(pygame.image.load("assets/head.png"))
-snake.tag = "head"
 snake.rect.center = (285, 285)
 snake_group.add(snake)
 
 
 def main():
     """Main game loop"""
+    global FPS
 
     # Instantiate the first food object
     food = Food(SCREEN_WIDTH, snake.rect.width)
@@ -62,29 +65,31 @@ def main():
                     snake.move_right()
 
         # Screen background color
+        # screen.blit(BACKGROUND, (0, 0))
         screen.fill(SCREEN_BG_COLOR)
 
         # Draw the objects from groups on screen
         food_group.draw(screen)
         snake_group.draw(screen)
 
+        # Rotate the snake head depending on direction
         snake.rotate_head()
 
         # Make body follow the head
         snake.follow_head(snake_group)
-        # Move & control the snake head
-        snake.update()
 
         # Check if snake has collided with food
         if food.is_collided(snake):
-            global FPS
             # Remove food from ground
             food.remove(food_group)
             # Create new food on a random position
             food = food.create_food(food_group, SCREEN_WIDTH, snake.rect.width)
             # Prolong the snake body by 1
             snake.create_new_body(snake_group)
-            FPS += 0.25
+            FPS += 0.5
+
+        # Move & control the snake head
+        snake.update()
 
         # Refresh display on each frame
         pygame.display.update()
