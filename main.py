@@ -18,9 +18,6 @@ icon = pygame.image.load("game_icon.png")
 pygame.display.set_icon(icon)
 pygame.display.set_caption("The Snake Game")
 
-# Load images
-BACKGROUND = pygame.image.load("assets/background.png").convert()
-
 # Set a clock for game speed settings
 clock = pygame.time.Clock()
 FPS = 5
@@ -65,7 +62,6 @@ def main():
                     snake.move_right()
 
         # Screen background color
-        # screen.blit(BACKGROUND, (0, 0))
         screen.fill(SCREEN_BG_COLOR)
 
         # Draw the objects from groups on screen
