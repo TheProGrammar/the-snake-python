@@ -6,7 +6,7 @@ class Food(pygame.sprite.Sprite):
     """A class to manage food attributes."""
     def __init__(self, screen_width, snake_width):
         super(Food, self).__init__()
-        self.image = pygame.image.load("assets/apple.png").convert_alpha()
+        self.image = pygame.image.load("assets/apple_red.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.position_list = [snake_width]
         self.fill_pos_list(screen_width, snake_width)
@@ -28,7 +28,8 @@ class Food(pygame.sprite.Sprite):
         """Empty the food list"""
         lst.empty()
 
-    def create_food(self, lst, width, snake_width):
+    @staticmethod
+    def create_food(lst, width, snake_width):
         """Create food object on random screen position"""
         food = Food(width, snake_width)
         lst.add(food)

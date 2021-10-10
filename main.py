@@ -13,10 +13,14 @@ SCREEN_HEIGHT = 600
 SCREEN_BG_COLOR = (45, 45, 45)
 
 # Instantiate screen settings
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), FULLSCREEN)
 icon = pygame.image.load("assets/game_icon.png").convert_alpha()
 pygame.display.set_icon(icon)
 pygame.display.set_caption("The Snake Game")
+pygame.mouse.set_visible(False)
+
+# Load images
+background = pygame.image.load("assets/grass_walls.png").convert()
 
 # Set a clock for game speed settings
 clock = pygame.time.Clock()
@@ -27,7 +31,7 @@ snake_group = pygame.sprite.Group()
 food_group = pygame.sprite.Group()
 
 # Instantiate the snake head
-snake = Snake(pygame.image.load("assets/head.png"))
+snake = Snake(pygame.image.load("assets/head_brown.png"))
 snake.rect.center = (285, 285)
 snake_group.add(snake)
 
@@ -60,9 +64,13 @@ def main():
                     snake.move_left()
                 elif event.key == pygame.K_RIGHT:
                     snake.move_right()
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
 
         # Screen background color
-        screen.fill(SCREEN_BG_COLOR)
+        screen.blit(background, (0, 0))
+        # screen.fill(SCREEN_BG_COLOR)
 
         # Draw the objects from groups on screen
         food_group.draw(screen)

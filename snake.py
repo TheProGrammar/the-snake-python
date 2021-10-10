@@ -6,7 +6,7 @@ class Snake(pygame.sprite.Sprite):
     def __init__(self, image):
         super(Snake, self).__init__()
         self.image = image.convert_alpha()
-        self.reset_image = pygame.image.load("assets/head.png").convert_alpha()
+        self.reset_image = pygame.image.load("assets/head_brown.png").convert_alpha()
         self.surface = pygame.Surface((30, 30))
         self.rect = self.image.get_rect()
         self.is_moving_up = False
@@ -16,6 +16,7 @@ class Snake(pygame.sprite.Sprite):
         self.rotation_is_done = False
 
     def rotate_head(self):
+        """Rotate snake snake depending on the move direction"""
         if self.is_moving_right and not self.rotation_is_done:
             self.reset_rotation(90)
         elif self.is_moving_left and not self.rotation_is_done:
@@ -51,7 +52,8 @@ class Snake(pygame.sprite.Sprite):
         elif self.is_moving_right:
             self.rect.right += 30
 
-    def follow_head(self, group):
+    @staticmethod
+    def follow_head(group):
         # Make body follow the snake head
         if len(group) > 1:
             i = 2
@@ -64,9 +66,10 @@ class Snake(pygame.sprite.Sprite):
                 i += 1
                 x += 1
 
-    def create_new_body(self, group):
+    @staticmethod
+    def create_new_body(group):
         # Create new snake body part
-        body = Snake(pygame.image.load("assets/body.png"))
+        body = Snake(pygame.image.load("assets/body_brown.png"))
         body.rect.center = group.sprites()[len(group) - 1].rect.center
         group.add(body)
 
