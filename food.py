@@ -16,7 +16,7 @@ class Food(pygame.sprite.Sprite):
     def fill_pos_list(self, screen_width, snake_width):
         # Fill the position list with possible food locations on ground
         pos = snake_width
-        for _ in range(int(screen_width / snake_width) - 2):
+        for _ in range(int(screen_width / snake_width) - 3):
             pos += snake_width
             self.position_list.append(pos)
 
@@ -29,8 +29,11 @@ class Food(pygame.sprite.Sprite):
         lst.empty()
 
     @staticmethod
-    def create_food(lst, width, snake_width):
+    def create_food(snake_parts, food_list, screen_width, snake_width):
         """Create food object on random screen position"""
-        food = Food(width, snake_width)
-        lst.add(food)
+        food = Food(screen_width, snake_width)
+        for body in snake_parts:
+            while body.rect.center == food.rect.center:
+                food = Food(screen_width, snake_width)
+        food_list.add(food)
         return food

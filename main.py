@@ -13,7 +13,7 @@ SCREEN_HEIGHT = 600
 SCREEN_BG_COLOR = (45, 45, 45)
 
 # Instantiate screen settings
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), FULLSCREEN)
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 icon = pygame.image.load("assets/game_icon.png").convert_alpha()
 pygame.display.set_icon(icon)
 pygame.display.set_caption("The Snake Game")
@@ -87,10 +87,10 @@ def main():
             # Remove food from ground
             food.remove(food_group)
             # Create new food on a random position
-            food = food.create_food(food_group, SCREEN_WIDTH, snake.rect.width)
+            food = food.create_food(snake_group, food_group, SCREEN_WIDTH, snake.rect.width)
             # Prolong the snake body by 1
             snake.create_new_body(snake_group)
-            FPS += 0.5
+            FPS += 0.25
 
         # Move & control the snake head
         snake.update()
