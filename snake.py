@@ -53,14 +53,14 @@ class Snake(pygame.sprite.Sprite):
         elif self.is_moving_right:
             self.rect.right += 30
 
-    def check_for_wall_collision(self, snake_width, screen_width):
-        if self.rect.top <= 0 + snake_width:
+    def wall_collision(self, snake_width, screen_width):
+        if self.rect.top <= 0 + snake_width * 0.9:
             self.is_alive = False
-        elif self.rect.right >= screen_width - 30:
+        elif self.rect.right >= screen_width - snake_width * 0.9:
             self.is_alive = False
-        elif self.rect.left <= 0 + 30:
+        elif self.rect.left <= 0 + snake_width * 0.9:
             self.is_alive = False
-        elif self.rect.bottom >= screen_width - 30:
+        elif self.rect.bottom >= screen_width - snake_width * 0.9:
             self.is_alive = False
 
     @staticmethod

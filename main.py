@@ -63,6 +63,8 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+                if event.key == pygame.K_r:
+                    main()
                 if snake.is_alive:
                     if event.key == pygame.K_UP:
                         snake.move_up()
@@ -104,7 +106,10 @@ def main():
 
             # Move & control the snake head
             snake.update()
-            snake.check_for_wall_collision(snake.rect.width, SCREEN_WIDTH)
+
+            # Check for snake wall collision
+            if snake.wall_collision(snake.rect.width, SCREEN_WIDTH):
+                pass
 
         # Refresh display on each frame
         pygame.display.update()
