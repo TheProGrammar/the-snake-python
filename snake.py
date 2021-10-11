@@ -5,6 +5,7 @@ class Snake(pygame.sprite.Sprite):
     """A class to manage Snake attributes"""
     def __init__(self, image):
         super(Snake, self).__init__()
+        self.is_alive = True
         self.image = image.convert_alpha()
         self.reset_image = pygame.image.load("assets/head_brown.png").convert_alpha()
         self.surface = pygame.Surface((30, 30))
@@ -52,6 +53,16 @@ class Snake(pygame.sprite.Sprite):
         elif self.is_moving_right:
             self.rect.right += 30
 
+    def check_for_wall_collision(self, snake_width, screen_width):
+        if self.rect.top <= 0 + snake_width:
+            self.is_alive = False
+        elif self.rect.right >= screen_width - 30:
+            self.is_alive = False
+        elif self.rect.left <= 0 + 30:
+            self.is_alive = False
+        elif self.rect.bottom >= screen_width - 30:
+            self.is_alive = False
+
     @staticmethod
     def follow_head(group):
         # Make body follow the snake head
@@ -59,7 +70,7 @@ class Snake(pygame.sprite.Sprite):
             i = 2
             x = 1
             # Set the last body part's position in list to the
-            # one before it to create the following illusion
+            # one before it in order to create the following illusion
             for _ in range(len(group) - 1):
                 pos = group.sprites()[-i].rect.center
                 group.sprites()[-x].rect.center = pos
@@ -72,6 +83,16 @@ class Snake(pygame.sprite.Sprite):
         body = Snake(pygame.image.load("assets/body_brown.png"))
         body.rect.center = group.sprites()[len(group) - 1].rect.center
         group.add(body)
+
+    def has_snake_collided_itself(self, snake, snake_group):
+        if len(snake_group) > 1:
+            head = snake_group.sprites()[0]
+            first_body_part = snake_group.sprites()[1]
+            for body in snake_group:
+                if body == head or body == first_body_part:
+                    continue
+                elif pygame.sprite.collide_rect(head, body):
+                    self.is_alive = False
 
     def move_up(self):
         if self.is_moving_down:
