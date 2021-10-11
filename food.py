@@ -16,6 +16,7 @@ class Food(pygame.sprite.Sprite):
     def fill_pos_list(self, screen_width, snake_width):
         # Fill the position list with possible food locations on ground
         pos = snake_width
+        # Fills the list with the positions within the wall
         for _ in range(int(screen_width / snake_width) - 3):
             pos += snake_width
             self.position_list.append(pos)
@@ -32,6 +33,7 @@ class Food(pygame.sprite.Sprite):
     def create_food(snake_parts, food_list, screen_width, snake_width):
         """Create food object on random screen position"""
         food = Food(screen_width, snake_width)
+        # Prevents food to spawn below the snake's body
         for body in snake_parts:
             while body.rect.center == food.rect.center:
                 food = Food(screen_width, snake_width)
