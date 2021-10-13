@@ -56,12 +56,16 @@ class Snake(pygame.sprite.Sprite):
     def wall_collision(self, snake_width, screen_width):
         if self.rect.top <= 0 + snake_width * 0.9:
             self.is_alive = False
+            return True
         elif self.rect.right >= screen_width - snake_width * 0.9:
             self.is_alive = False
+            return True
         elif self.rect.left <= 0 + snake_width * 0.9:
             self.is_alive = False
+            return True
         elif self.rect.bottom >= screen_width - snake_width * 0.9:
             self.is_alive = False
+            return True
 
     @staticmethod
     def follow_head(group):
@@ -93,6 +97,7 @@ class Snake(pygame.sprite.Sprite):
                     continue
                 if pygame.sprite.collide_rect(head, body):
                     self.is_alive = False
+                    return True
 
     def move_up(self):
         if self.is_moving_down:
