@@ -7,7 +7,7 @@ class Snake(pygame.sprite.Sprite):
         super(Snake, self).__init__()
         self.is_alive = True
         self.image = image.convert_alpha()
-        self.reset_image = pygame.image.load("assets/head_brown.png").convert_alpha()
+        self.reset_image = pygame.image.load("assets/images/head_brown.png").convert_alpha()
         self.surface = pygame.Surface((30, 30))
         self.rect = self.image.get_rect()
         self.is_moving_up = False
@@ -80,18 +80,18 @@ class Snake(pygame.sprite.Sprite):
     @staticmethod
     def create_new_body(group):
         # Create new snake body part
-        body = Snake(pygame.image.load("assets/body_brown.png"))
+        body = Snake(pygame.image.load("assets/images/body_brown.png"))
         body.rect.center = group.sprites()[len(group) - 1].rect.center
         group.add(body)
 
-    def has_snake_collided_itself(self, snake, snake_group):
+    def has_snake_collided_itself(self, snake_group):
         if len(snake_group) > 1:
             head = snake_group.sprites()[0]
             first_body_part = snake_group.sprites()[1]
             for body in snake_group:
                 if body == head or body == first_body_part:
                     continue
-                elif pygame.sprite.collide_rect(head, body):
+                if pygame.sprite.collide_rect(head, body):
                     self.is_alive = False
 
     def move_up(self):

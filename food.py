@@ -6,7 +6,7 @@ class Food(pygame.sprite.Sprite):
     """A class to manage food attributes."""
     def __init__(self, screen_width, snake_width):
         super(Food, self).__init__()
-        self.image = pygame.image.load("assets/apple_red.png").convert_alpha()
+        self.image = pygame.image.load("assets/images/apple_red.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.position_list = [snake_width]
         self.fill_pos_list(screen_width, snake_width)

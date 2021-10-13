@@ -16,13 +16,13 @@ SCREEN_BG_COLOR = (45, 45, 45)
 
 # Instantiate screen settings
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-icon = pygame.image.load("assets/game_icon.png").convert_alpha()
+icon = pygame.image.load("assets/images/game_icon.png").convert_alpha()
 pygame.display.set_icon(icon)
 pygame.display.set_caption("The Snake Game")
 pygame.mouse.set_visible(False)
 
 # Load images
-background = pygame.image.load("assets/grass_walls.png").convert()
+background = pygame.image.load("assets/images/grass_walls.png").convert()
 
 # Set a clock for game speed settings
 clock = pygame.time.Clock()
@@ -33,7 +33,7 @@ snake_group = pygame.sprite.Group()
 food_group = pygame.sprite.Group()
 
 # Instantiate the snake head
-snake = Snake(pygame.image.load("assets/head_brown.png"))
+snake = Snake(pygame.image.load("assets/images/head_brown.png"))
 snake.rect.center = (285, 285)
 snake_group.add(snake)
 
@@ -63,8 +63,6 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
-                if event.key == pygame.K_r:
-                    main()
                 if snake.is_alive:
                     if event.key == pygame.K_UP:
                         snake.move_up()
@@ -77,7 +75,6 @@ def main():
 
         # Screen background color
         screen.blit(background, (0, 0))
-        # screen.fill(SCREEN_BG_COLOR)
 
         # Draw the objects from groups on screen
         food_group.draw(screen)
@@ -91,7 +88,7 @@ def main():
             # Make body follow the head
             snake.follow_head(snake_group)
 
-            snake.has_snake_collided_itself(snake, snake_group)
+
 
             # Check if snake has collided with food
             if food.is_collided(snake):
@@ -106,6 +103,8 @@ def main():
 
             # Move & control the snake head
             snake.update()
+
+            snake.has_snake_collided_itself(snake_group)
 
             # Check for snake wall collision
             if snake.wall_collision(snake.rect.width, SCREEN_WIDTH):
